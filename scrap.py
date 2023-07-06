@@ -9,7 +9,7 @@ LIST_ALL_QUOTES = []
 LIST_All_AUTHORS_URL = []
 
 
-def parse_all_info_from_page(url): # збирає цитати і url автора з усіх сторінок сайту
+def parse_all_info_from_page(url):
 
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'lxml')
@@ -25,7 +25,7 @@ def parse_all_info_from_page(url): # збирає цитати і url автор
     return parse_all_info_from_page(URL+page)
 
 
-def get_quotes(soup): # збирає інформацію про цитату
+def get_quotes(soup):
 
     quotes = soup.find_all('span', class_='text')
     authors = soup.find_all('small', class_='author')
@@ -52,7 +52,7 @@ def save_to_json(data, file_name):
         json.dump(data, fd, ensure_ascii=False)
 
 
-def get_author_urls(soup): # відповідає за збір силок на особисту сторінку автора зі сторінок цитат
+def get_author_urls(soup):
     authors = soup.select("div[class=quote] span a")
 
     for author in authors:
@@ -62,7 +62,7 @@ def get_author_urls(soup): # відповідає за збір силок на 
             LIST_All_AUTHORS_URL.append(full_author_url)
 
 
-def get_author_info(url): # збирає інформацію про автора
+def get_author_info(url):
     author = {}
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'lxml')
